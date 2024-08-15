@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react"
+import { useState, useCallback, useEffect, useRef } from "react"
 
 
 function App() {
@@ -6,6 +6,8 @@ const [length, setLength] = useState(8);
 const [numberAllowed, setNumberAllowed] = useState(false);
 const [charAllowed, setCharAllowed] = useState(false);
 const [password, setPassword] = useState('');
+
+const passwordRef = useRef(null)
 
 const genegratePassword = useCallback(() => {
   let pass = "";
@@ -26,6 +28,7 @@ const genegratePassword = useCallback(() => {
 
 const copyPasswordToClipboard = () => {
   window.navigator.clipboard.writeText(password)
+  passwordRef.current?.select()
 }
 
 useEffect(() =>{
@@ -43,7 +46,7 @@ value={password}
 className="outline-none w-full py-1 px-3" 
 placeholder="Passsword"
 readOnly
-// ref={}
+ref={passwordRef}
 />
 <button
 onClick={copyPasswordToClipboard}
